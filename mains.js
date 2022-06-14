@@ -1,6 +1,7 @@
 var inputBox = document.querySelector("#in_input");
 var clickBtn = document.querySelector("#btn_click");
-var outputBox = document.querySelector("#output");
+var outputEl = document.querySelector("#output");
+
 function calculateTrainDetails() {
   const options = {
     method: "POST",
@@ -25,7 +26,19 @@ function printOnPage(response) {
   console.log("print1 is called");
   if (response.length > 0) {
     console.log("true");
+    readData(response);
   } else {
     console.log("false");
+    outputEl.innerHTML = "error!!";
+  }
+}
+function readData(response) {
+  outputEl.innerHTML = "";
+  for (let i = 0; i < response.length; i++) {
+    outputEl.innerHTML =
+      outputEl.innerHTML +
+      `<div class="outer">
+         <div> Name = ${response[i].name}</div><div> TrainFrom =  ${response[i].train_from}</div><div> TrainTo = ${response[i].train_to}</div>
+         <div>trainNumber =${response[i].train_num}</div></div> `;
   }
 }
